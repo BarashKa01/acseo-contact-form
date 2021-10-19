@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre requête{% endblock %}
+
+
+{% block body %}
+{{ form_start(contact_form) }}
+
+    {{ form_row(contact_form.username, {'label' : 'Votre nom'}) }}
+    {{ form_row(contact_form.usermail, {'label' : 'Votre email'}) }}
+    {{ form_row(contact_form.usermessage, {'label' : 'Votre message'}) }}
+
+    {{ form_end(contact_form) }}
+{% endblock %}
