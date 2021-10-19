@@ -91,4 +91,9 @@ class UserRequest
         return $this;
     }
 
+    public function setStatusFromUpdate()
+    {
+        $this->status = !$this->status;
+    }
+
 }

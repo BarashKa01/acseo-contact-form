@@ -4,11 +4,21 @@
 
 
 {% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
 {{ form_start(contact_form) }}
 
     {{ form_row(contact_form.username, {'label' : 'Votre nom'}) }}
     {{ form_row(contact_form.usermail, {'label' : 'Votre email'}) }}
     {{ form_row(contact_form.usermessage, {'label' : 'Votre message'}) }}
-
+    <button>Envoyer</button>
     {{ form_end(contact_form) }}
 {% endblock %}
