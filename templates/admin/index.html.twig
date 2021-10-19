@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+    <h1>Voici la liste des demandes</h1>
+    {% include '/admin/_user_request.html.twig' with requests %}
+{% endblock %}
+
