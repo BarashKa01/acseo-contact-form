@@ -15,12 +15,14 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
+        login_admin:
             anonymous: lazy
             provider: app_user_provider
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthenticator
+            form_login:
+                check_path: login
             logout:
                 path: logout
                 # where to redirect after logout
@@ -31,15 +33,6 @@ security:
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
-        #login_admin:
-            #form_login:
-            #    check_path: login
-            #guard:
-             #   authenticators:
-              #      - App\Security\LoginFormAuthenticator
-            #remember_me:
-            #    secret: '%kernel.secret%'
-            #    lifetime: 2592000
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:

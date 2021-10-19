@@ -25,51 +25,6 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route ("register", name="user_register")
-     * @param Request $request
-     * @param GuardAuthenticatorHandler $guardHandler
-     * @param LoginFormAuthenticator $loginFormAuthenticator
-     * @return Response|null
-     * @throws \Exception
-     */
-    public function register(Request $request, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $loginFormAuthenticator): ?Response
-    {
-        $user = new User();
-        $register_form = $this->createForm(UserType::class, $user);
-        $register_form->handleRequest($request);
-        if ($register_form->isSubmitted() && $register_form->isValid())
-        {
-            $password = $user->getPassword();
-            $user = $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
-
-            /**
-             * Because different users can have the same username, authentication should be handled by email
-             */
-            if (!$this->userRepository->findOneBy(['email' => $user->getEmail()]))
-            {
-                $user->setRoles(['ROLE_USER']);
-                $this->om->persist($user);
-                $this->om->flush();
-
-                return $guardHandler->authenticateUserAndHandleSuccess(
-                    $user,
-                    $request,
-                    $loginFormAuthenticator,
-                    'login_admin'
-                );
-            }
-            else
-            {
-                $this->addFlash('error', 'Cet e-mail est déjà utilisé, avez-vous oublié votre mot de passe ?');
-            }
-        }
-        return $this->render('admin/user/new.html.twig', [
-            'user' => $user,
-            'register_form' => $register_form->createView()
-        ]);
-    }
-
-    /**
      * @Route("/login", name="login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response

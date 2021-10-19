@@ -19,32 +19,10 @@ class UserRequestRepository extends ServiceEntityRepository
         parent::__construct($registry, UserRequest::class);
     }
 
-    // /**
-    //  * @return UserRequest[] Returns an array of UserRequest objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
+    public function findAllSorted(){
+        return $this->createQueryBuilder('query')
+            ->orderBy('query.usermail', 'ASC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?UserRequest
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

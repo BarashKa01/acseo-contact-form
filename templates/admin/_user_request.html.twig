@@ -1,0 +1,17 @@
+{{ dump(requests) }}
+{% for request in requests %}
+    <form method="post" action="{{ path('update.list', {id: request.id}) }}">
+        <div class="card">
+            {% if request.status == true %}
+                <input type="checkbox" checked>
+            {% else %}
+                <input type="checkbox">
+            {% endif %}
+            <h3 class="card-title">{{ request.username }}</h3>
+            <p class="card-mail">{{ request.usermail }}</p>
+            <p class="card-message">{{ request.usermessage }}</p>
+        </div>
+        <input type="hidden" name="_method" value="POST">
+        <button type="submit">Mettre à jour le status</button>
+    </form>
+{% endfor %}
