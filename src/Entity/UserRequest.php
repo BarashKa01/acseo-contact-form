@@ -32,6 +32,11 @@ class UserRequest
      */
     private $usermessage;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $status;
+
 
     public function getId(): ?int
     {
@@ -70,6 +75,18 @@ class UserRequest
     public function setUsermessage(string $usermessage): self
     {
         $this->usermessage = $usermessage;
+
+        return $this;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
