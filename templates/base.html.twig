@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset ('assets/css/style.css') }}">
-        {% endblock %}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset ('assets/css/style.css') }}">
+    {% endblock %}
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    {% block javascripts %}
+        {# {{ encore_entry_script_tags('app') }} #}
+    {% endblock %}
+</head>
+<body>
+{% if app.user %}
+    <div class="mb-5">
+        <p>Bonjour {{ app.user.username }} </p><br>
+        <a href="{{ path('logout') }}">Logout</a> <br>
+        <a href="{{ path('admin') }}">go to the admin panel</a> <br>
+        <a href="{{ path('contact') }}">Contact</a>
+    </div>
+{% else %}
+    <div class="mb-5">
+        <a href="{{ path('login') }}">Logout</a> <br>
+        <a href="{{ path('contact') }}">go to the admin panel</a>
+    </div>
+{% endif %}
+{% block body %}
+{% endblock %}
+</body>
 </html>
