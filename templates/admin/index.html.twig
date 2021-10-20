@@ -3,7 +3,13 @@
 {% block title %}Administration{% endblock %}
 
 {% block body %}
+    {% if requests %}
     <h1>Voici la liste des demandes</h1>
-    {% include '/admin/_user_request.html.twig' with requests %}
+    <div class="form-items">
+        {% include '/admin/_user_request.html.twig' with requests %}
+    </div>
+    {% else %}
+        <h1>Il n'y a pas de demandes, liste indisponible</h1
+    {% endif %}
 {% endblock %}
 

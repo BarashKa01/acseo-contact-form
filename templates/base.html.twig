@@ -15,19 +15,23 @@
 </head>
 <body>
 {% if app.user %}
-    <div class="mb-5">
+    <div class="nav">
         <p>Bonjour {{ app.user.username }} </p><br>
-        <a href="{{ path('logout') }}">Logout</a> <br>
-        <a href="{{ path('admin') }}">go to the admin panel</a> <br>
-        <a href="{{ path('contact') }}">Contact</a>
+        <a class="nav-item" href="{{ path('home') }}">Home</a> <br>
+        <a class="nav-item" href="{{ path('admin') }}">Admin panel</a> <br>
+        <a class="nav-item" href="{{ path('contact') }}">Contact</a>
+        <a class="nav-item" href="{{ path('logout') }}">Logout</a> <br>
     </div>
 {% else %}
-    <div class="mb-5">
-        <a href="{{ path('login') }}">Logout</a> <br>
-        <a href="{{ path('contact') }}">go to the admin panel</a>
+    <div class="nav">
+        <a class="nav-item" href="{{ path('home') }}">Home</a> <br>
+        <a class="nav-item" href="{{ path('login') }}">Login</a> <br>
+        <a class="nav-item" href="{{ path('contact') }}">Contact</a>
     </div>
 {% endif %}
-{% block body %}
-{% endblock %}
+    <div class="wrapper">
+        {% block body %}
+        {% endblock %}
+    </div>
 </body>
 </html>
