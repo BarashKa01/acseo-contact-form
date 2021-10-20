@@ -1,10 +1,17 @@
 # acseo-contact-form
 
+
+Change .env database configuration if needed (dont change dev to prod env because of dependencies missing or edit the composer.json).
+
 composer install
-Change .env database configuration if needed (dont change dev to prod env because of dependencies missing or edit the composer.json)
+
 php bin/console doctrine:database:create
+
 php bin/console doctrine:migrations:migrate
+
 php bin/console doctrine:fixtures:load
+
+
 
 You can test it
 
