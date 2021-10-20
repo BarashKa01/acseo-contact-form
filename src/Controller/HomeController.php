@@ -39,12 +39,13 @@ class HomeController extends AbstractController
                 $manager->persist($userRequest);
                 $manager->flush();
 
-                $isFileCreated = $this->createJsonFile($userRequest, $serializer);
+                $projectPath = $this->getParameter('kernel.project_dir');
+                $isFileCreated = $this->createJsonFile($userRequest, $serializer, $projectPath);
 
                 if ($isFileCreated){
                     $this->addFlash('success', 'Votre demande est envoyée');
                 }else{
-                    $this->addFlash('error', 'Votre demande est envoyée, mais avec une erreur');
+                    $this->addFlash('danger', 'Votre demande est envoyée, mais avec une erreur');
                 }
 
             }catch (\Exception $e){
@@ -56,18 +57,17 @@ class HomeController extends AbstractController
         ]);
     }
 
-    private function createJsonFile(UserRequest $userRequest, SerializerInterface $serializer):bool
+    public static function createJsonFile(UserRequest $userRequest, SerializerInterface $serializer, string $projectPath):bool
     {
+        //dd($userRequest);
         $fs = new Filesystem();
         $tmpFile = $fs->tempnam('/temp', 'temp_'.$userRequest->getUsermail().'.json');
 
         /**
          * Prepare the file name and path
          */
-        $date = new \DateTime('now');
-        $date = $date->format("Y-m-d-H\hi\ms\s");
-        $jsonDirectoryPath = $this->getParameter('kernel.project_dir')."\\src\\JSONuserRequests\\";
-        $fileName = $userRequest->getUsermail().'-'.$date;
+        $jsonDirectoryPath = $projectPath."\\src\\JSONuserRequests\\";
+        $fileName = $userRequest->getUsermail().'-'.$userRequest->getId();
 
         $fullNameWithPath = $jsonDirectoryPath.$fileName.".json";
 
@@ -79,7 +79,7 @@ class HomeController extends AbstractController
 
         try {
             $fs->appendToFile($tmpFile, $jsonData);
-            $fs->rename($tmpFile, $fullNameWithPath);
+            $fs->rename($tmpFile, $fullNameWithPath, true);
             return true;
 
         }catch (IOException $exception){
