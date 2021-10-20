@@ -64,9 +64,16 @@ class HomeController extends AbstractController
         $tmpFile = $fs->tempnam('/temp', 'temp_'.$userRequest->getUsermail().'.json');
 
         /**
-         * Prepare the file name and path
+         * Prepare the file name, path and path separator
          */
-        $jsonDirectoryPath = $projectPath."\\src\\JSONuserRequests\\";
+        $pathSeparator = '';
+        if (strpos($projectPath, '\\')){
+            $pathSeparator = '\\';
+        }else{
+            $pathSeparator = '/';
+        }
+
+        $jsonDirectoryPath = $projectPath.$pathSeparator."src".$pathSeparator."JSONuserRequests".$pathSeparator;
         $fileName = $userRequest->getUsermail().'-'.$userRequest->getId();
 
         $fullNameWithPath = $jsonDirectoryPath.$fileName.".json";
