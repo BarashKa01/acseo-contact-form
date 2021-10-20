@@ -27,6 +27,7 @@ class UserRequest
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
+     * @Assert\Email
      */
     private $usermail;
 
