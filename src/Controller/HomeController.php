@@ -59,22 +59,14 @@ class HomeController extends AbstractController
 
     public static function createJsonFile(UserRequest $userRequest, SerializerInterface $serializer, string $projectPath):bool
     {
-        //dd($userRequest);
         $fs = new Filesystem();
         $tmpFile = $fs->tempnam('/temp', 'temp_'.$userRequest->getUsermail().'.json');
 
         /**
          * Prepare the file name, path and path separator
          */
-        $pathSeparator = '';
-        if (strpos($projectPath, '\\')){
-            $pathSeparator = '\\';
-        }else{
-            $pathSeparator = '/';
-        }
-
-        $jsonDirectoryPath = $projectPath.$pathSeparator."src".$pathSeparator."JSONuserRequests".$pathSeparator;
-        $fileName = $userRequest->getUsermail().'-'.$userRequest->getId();
+        $jsonDirectoryPath = $projectPath.DIRECTORY_SEPARATOR."src".DIRECTORY_SEPARATOR."JSONuserRequests".DIRECTORY_SEPARATOR;
+        $fileName = $userRequest->getId();
 
         $fullNameWithPath = $jsonDirectoryPath.$fileName.".json";
 
